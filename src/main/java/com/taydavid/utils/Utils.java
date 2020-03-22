@@ -16,8 +16,8 @@ import java.util.concurrent.CompletionException;
 import com.google.common.collect.Table;
 import com.google.common.collect.TreeBasedTable;
 import com.google.common.collect.Table.Cell;
+
 import com.taydavid.dto.MergedCollection;
-import com.taydavid.model.DocumentCollection;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
