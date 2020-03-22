@@ -16,6 +16,7 @@ import java.util.concurrent.CompletionException;
 import com.google.common.collect.Table;
 import com.google.common.collect.TreeBasedTable;
 import com.google.common.collect.Table.Cell;
+import com.taydavid.dto.MergedCollection;
 import com.taydavid.model.DocumentCollection;
 
 import au.com.bytecode.opencsv.CSVWriter;
@@ -48,13 +49,13 @@ public class Utils {
 	/**
 	 * Write combined csv file with all consolidated document data tables
 	 */
-	public static void writeMergedCSV() {
+	public static void writeMergedCSV(final MergedCollection mc) {
 
-		for (Map.Entry<String, Table<String, String, String>> mapElement : DocumentCollection.sTableMap.entrySet()) {
+		for (Map.Entry<String, Table<String, String, String>> mapElement : mc.getTableMap().entrySet()) {
 			sFinalTable.putAll(mapElement.getValue());
 		}
 
-		List<String> firstRowHeaderList = new ArrayList<>(DocumentCollection.sFirstRowHeaderSet);
+		List<String> firstRowHeaderList = new ArrayList<>(mc.getHeader());
 		Collections.sort(firstRowHeaderList);
 		firstRowHeaderList.remove(Constants.ID_COLUMN);
 		firstRowHeaderList.add(0, Constants.ID_COLUMN);

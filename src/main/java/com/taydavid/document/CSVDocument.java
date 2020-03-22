@@ -11,6 +11,7 @@ import java.util.concurrent.CompletionException;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Table;
 import com.google.common.collect.TreeBasedTable;
+import com.taydavid.dto.MergedCollection;
 import com.taydavid.model.DocumentCollection;
 import com.taydavid.utils.Constants;
 import com.taydavid.utils.Utils;
@@ -26,10 +27,6 @@ import au.com.bytecode.opencsv.CSVReader;
 public class CSVDocument implements DocumentCollection {
 	private Table<String, String, String> mTable;
 
-	public void addTable(final String fileName, Table<String, String, String> table) {
-		sTableMap.put(fileName, table);
-	}
-
 	/**
 	 * Read a CSV file and create a Guava table representation of items within the
 	 * CSV file
@@ -38,7 +35,7 @@ public class CSVDocument implements DocumentCollection {
 	 * @throws CompletionException
 	 */
 	@Override
-	public void read(final String file) {
+	public void read(final String file, final MergedCollection mc) {
 		List<String> columnKeys = null;
 		mTable = TreeBasedTable.create();
 		try (CSVReader reader = new CSVReader(
@@ -59,8 +56,8 @@ public class CSVDocument implements DocumentCollection {
 			throw new CompletionException("IOException occurred while working on CSV file.", e);
 		}
 
-		sFirstRowHeaderSet.addAll(columnKeys);
-		sTableMap.put(file, mTable);
+		mc.getHeader().addAll(columnKeys);
+		mc.getTableMap().put(file, mTable);
 
 	}
 }

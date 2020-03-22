@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import com.taydavid.document.CSVDocument;
 import com.taydavid.document.HTMLDocument;
+import com.taydavid.dto.MergedCollection;
 import com.taydavid.model.DocumentCollection;
 import com.taydavid.utils.Constants;
 import com.taydavid.utils.Utils;
@@ -40,16 +41,17 @@ public class RecordMerger {
 			}
 		});
 
+		final MergedCollection mc = new MergedCollection();
 		existingFileTypes.parallelStream().forEach(file -> {
 			if (Pattern.matches(Constants.CSV_FILE_PATTERN_REGEX, file)) {
 				DocumentCollection csvDoc = new CSVDocument();
-				csvDoc.read(file);
+				csvDoc.read(file, mc);
 			} else if (Pattern.matches(Constants.HTML_FILE_PATTERN_REGEX, file)) {
 				DocumentCollection htmlDoc = new HTMLDocument();
-				htmlDoc.read(file);
+				htmlDoc.read(file, mc);
 			}
 		});
 
-		Utils.writeMergedCSV();
+		Utils.writeMergedCSV(mc);
 	}
 }

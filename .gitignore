@@ -3,3 +3,8 @@ dist/
 bin/
 output/
 temp/
+.DS_Store
+src/.DS_Store
+.DS_Store
+.classpath
+.project

@@ -5,12 +5,9 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.common.collect.Table;
+import com.taydavid.dto.MergedCollection;
 
 public interface DocumentCollection {
 
-	static Set<String> sFirstRowHeaderSet = ConcurrentHashMap.newKeySet();
-
-	static Map<String, Table<String, String, String>> sTableMap = new ConcurrentHashMap<>();
-
-	void read(final String file);
+	void read(final String file, final MergedCollection mc);
 }

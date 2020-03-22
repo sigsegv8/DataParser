@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 
 import com.google.common.collect.Table;
 import com.google.common.collect.TreeBasedTable;
+import com.taydavid.dto.MergedCollection;
 import com.taydavid.model.DocumentCollection;
 import com.taydavid.utils.Constants;
 import com.taydavid.utils.Utils;
@@ -36,7 +37,7 @@ public class HTMLDocument implements DocumentCollection {
 	 * @throws CompletionException
 	 */
 	@Override
-	public void read(final String file) {
+	public void read(final String file, final MergedCollection mc) {
 		Document doc;
 		File input = new File(Constants.BASE_DATA_FOLDER + file);
 		List<String> columnKeys = new ArrayList<>();
@@ -66,8 +67,8 @@ public class HTMLDocument implements DocumentCollection {
 			throw new CompletionException("Exception occured while parsing input file with Jsoup.", e);
 		}
 
-		sFirstRowHeaderSet.addAll(columnKeys);
-		sTableMap.put(file, mTable);
+		mc.getHeader().addAll(columnKeys);
+		mc.getTableMap().put(file, mTable);
 	}
 
 }
